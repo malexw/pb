@@ -68,6 +68,7 @@ type ProgressBar struct {
 	Callback                         Callback
 	NotPrint                         bool
 	Units                            int
+	MaxWidth                         int
 
 	isFinish  bool
 	startTime time.Time
@@ -175,8 +176,12 @@ func (pb *ProgressBar) NewProxyReader(r io.Reader) *Reader {
 }
 
 func (pb *ProgressBar) write(current int64) {
-	width, _ := terminalWidth()
 	var percentBox, countersBox, timeLeftBox, speedBox, barBox, end, out string
+
+	width, _ := terminalWidth()
+	if width > pb.MaxWidth {
+		width = pb.MaxWidth
+	}
 
 	// percents
 	if pb.ShowPercent {
