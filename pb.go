@@ -186,7 +186,7 @@ func (pb *ProgressBar) write(current int64) {
 	// percents
 	if pb.ShowPercent {
 		percent := float64(current) / (float64(pb.Total) / float64(100))
-		percentBox = fmt.Sprintf(" %#.02f %% ", percent)
+		percentBox = fmt.Sprintf(" %#.02f%% ", percent)
 	}
 
 	// counters
@@ -213,7 +213,7 @@ func (pb *ProgressBar) write(current int64) {
 	if pb.ShowSpeed && current > 0 {
 		fromStart := time.Now().Sub(pb.startTime)
 		speed := float64(current) / (float64(fromStart) / float64(time.Second))
-		speedBox = Format(int64(speed), pb.Units) + "/s "
+		speedBox = Format(int64(speed), pb.Units) + "px/s "
 	}
 
 	// bar
